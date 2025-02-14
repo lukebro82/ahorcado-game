@@ -4,6 +4,15 @@
   box-sizing: border-box;
 }
 
+#root {
+  margin: 0;
+  height: 100vh;
+}
+.App {
+  position: relative;
+  height: 100vh;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -32,6 +41,8 @@ h3 {
   font-weight: 700;
   background-color: #555;
   color: white;
+  width: 30px;
+  height: 36px;
 }
 
 .newGame-button {
@@ -138,4 +149,26 @@ h3 {
   .hiddenWord h3 {
     font-size: 40px;
   }
+
+  .letter-button {
+    margin: 5px;
+    padding: 5px;
+    border-radius: 6px;
+    border: none;
+    font-size: 25px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    background-color: #555;
+    color: white;
+    width: 45px;
+    height: 50px;
+  }
+
+  .hiddenWord h3 {
+    letter-spacing: 4px; /* Ajusta según necesites */
+  }
+}
+
+.hiddenWord h3 {
+  letter-spacing: 2px; /* Ajusta según necesites */
 }

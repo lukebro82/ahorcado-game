@@ -4,7 +4,6 @@ import { letters } from "./helpers/letters";
 import { getWord } from "./helpers/getWord";
 import { Win } from "./components/Win";
 import { Lose } from "./components/Lose";
-import "./App.css";
 
 function App() {
   const [lettersButtons, setLettersButtons] = useState(letters);
