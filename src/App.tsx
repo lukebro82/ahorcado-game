@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { HangImage } from "./components/HangImage";
 import { letters } from "./helpers/letters";
 import { getWord } from "./helpers/getWord";
+import { Win } from "./components/Win";
+import { Lose } from "./components/Lose";
 import "./App.css";
 
 function App() {
@@ -11,7 +13,6 @@ function App() {
   const [attempts, setAttempts] = useState(0);
   const [lose, setLose] = useState(false);
   const [won, setWon] = useState(false);
-  const [letterPress, setPres] = useState("");
 
   // determinar si la persona perdio
   useEffect(() => {
@@ -25,6 +26,7 @@ function App() {
     const currentHiddenWord = hiddenWord.split(" ").join("");
     if (currentHiddenWord === word) {
       setWon(true);
+      setLose(false);
     }
   }, [hiddenWord]);
 
@@ -33,11 +35,6 @@ function App() {
     if (lose) {
       return;
     } // si perdio no pueda seguir probando
-
-    // mostrar las letras elegidas si no estan repetidas
-    if (!letterPress.includes(letter)) {
-      setPres(letterPress + letter);
-    }
 
     if (!word.includes(letter)) {
       setAttempts(Math.min(attempts + 1, 9));
@@ -63,7 +60,6 @@ function App() {
     setAttempts(0);
     setLose(false);
     setWon(false);
-    setPres("");
     setLettersButtons(letters);
   };
 
@@ -73,31 +69,32 @@ function App() {
       <HangImage imageNumber={attempts} />
 
       {/* Palabra Oculta */}
-      <h3>{hiddenWord}</h3>
+      <div className="hiddenWord">
+        {" "}
+        <h3>{hiddenWord}</h3>
+      </div>
 
       {/* Contador de intentos */}
-      <h3>Intentos: {attempts}</h3>
-
-      {/* Letras Elegidas */}
-      {<h3>Letras Elegidas:</h3>}
-      {<h3>{letterPress}</h3>}
+      <h3>Fallos: {attempts}</h3>
 
       {/* Mensaje si perdio */}
-      {lose ? <h3>Perdiste... La palabra era: {word}</h3> : ""}
+      {lose ? <Lose word={word} newGame={newGame} /> : ""}
 
       {/* Mensaje si gano */}
-      {won ? <h3>Ganaste!!!!!</h3> : ""}
+      {won ? <Win newGame={newGame} /> : ""}
 
-      {/* Botones de letras*/}
-      {lettersButtons.map((letter) => (
-        <button
-          key={letter}
-          className="letter-button"
-          onClick={() => checkhLetter(letter)}
-        >
-          {letter}
-        </button>
-      ))}
+      {/* Contenedor de letras */}
+      <div className="letters-container">
+        {lettersButtons.map((letter) => (
+          <button
+            key={letter}
+            className="letter-button"
+            onClick={() => checkhLetter(letter)}
+          >
+            {letter}
+          </button>
+        ))}
+      </div>
 
       <br />
       <br />

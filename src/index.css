@@ -15,6 +15,7 @@ body {
   flex-direction: column;
   text-align: center;
   font-family: "Roboto", sans-serif;
+  background-color: #eaeaea;
 }
 
 h3 {
@@ -23,12 +24,14 @@ h3 {
 
 .letter-button {
   margin: 5px;
-  padding: 8px;
+  padding: 5px;
   border-radius: 6px;
   border: none;
-  font-size: 24px;
+  font-size: 25px;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
+  background-color: #555;
+  color: white;
 }
 
 .newGame-button {
@@ -38,4 +41,101 @@ h3 {
   padding: 10px;
   font-family: "Roboto", sans-serif;
   font-weight: 500;
+  background-color: #555;
+  color: white;
+}
+
+.winner {
+  position: absolute;
+  top: 0px; /* Ajusta según necesidad */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  padding: 20px;
+
+  z-index: 9999; /* Asegura que esté por encima de todo */
+
+  height: 100vh; /* No permite que el contenedor sea más alto que el 90% de la pantalla */
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra horizontalmente */
+  justify-content: center; /* Centra verticalmente */
+  gap: 20px;
+
+  background-color: #d10e42;
+}
+
+.winner img {
+  width: 100%; /* La imagen se ajusta al ancho del div */
+  height: auto; /* Mantiene la proporción */
+  border-radius: 10px; /* Opcional: para que la imagen tenga bordes redondeados */
+}
+
+.win-title {
+  color: white;
+  font-size: 50px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+}
+
+.lose-word {
+  color: white;
+}
+
+.loser {
+  position: absolute;
+  top: 0px; /* Ajusta según necesidad */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  padding: 20px;
+
+  z-index: 9999; /* Asegura que esté por encima de todo */
+
+  height: 100vh; /* No permite que el contenedor sea más alto que el 90% de la pantalla */
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra horizontalmente */
+  justify-content: center; /* Centra verticalmente */
+  gap: 20px;
+
+  background-color: #331f20;
+}
+
+.loser img {
+  width: 100%; /* La imagen se ajusta al ancho del div */
+  height: auto; /* Mantiene la proporción */
+  border-radius: 10px; /* Opcional: para que la imagen tenga bordes redondeados */
+}
+
+@media (min-width: 600px) {
+  .letters-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los botones pasen a la siguiente línea */
+    justify-content: center; /* Centra los botones */
+    gap: 10px; /* Espaciado entre botones */
+    max-width: 650px; /* Limita el ancho en desktop */
+    margin: 20px auto; /* Centra el contenedor */
+    padding: 10px;
+  }
+
+  .letter-button {
+    margin: 5px;
+    padding: 5px;
+    border-radius: 6px;
+    border: none;
+    font-size: 35px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    background-color: #555;
+    color: white;
+  }
+
+  .hiddenWord h3 {
+    font-size: 40px;
+  }
 }
