@@ -6,6 +6,7 @@ export const Win = (props: any) => {
       <div>
         {" "}
         <h1 className="win-title">GANASTE!!!!</h1>
+        <h3 className="lose-word">{props.word}</h3>
       </div>
       <div>
         <img src={imageWin} alt="win" />

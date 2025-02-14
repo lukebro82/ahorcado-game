@@ -31,5 +31,5 @@ export function HangImage({ imageNumber }: Props) {
     imageNumber = 9;
   }
 
-  return <img src={images[imageNumber]} style={{ width: 240 }} />;
+  return <img src={images[imageNumber]} style={{ width: 228 }} />;
 }

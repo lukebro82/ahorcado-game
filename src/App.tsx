@@ -12,6 +12,20 @@ function App() {
   const [attempts, setAttempts] = useState(0);
   const [lose, setLose] = useState(false);
   const [won, setWon] = useState(false);
+  const [time, setTime] = useState(30);
+
+  // Reducir el tiempo cada segundo
+  useEffect(() => {
+    if (lose || won) return; // Detener si ya ganó o perdió
+
+    if (time === 0) {
+      setLose(true);
+      return;
+    }
+
+    const timer = setTimeout(() => setTime(time - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [time, lose, won]);
 
   // determinar si la persona perdio
   useEffect(() => {
@@ -25,13 +39,12 @@ function App() {
     const currentHiddenWord = hiddenWord.split(" ").join("");
     if (currentHiddenWord === word) {
       setWon(true);
-      setLose(false);
     }
   }, [hiddenWord]);
 
   const checkhLetter = (letter: string) => {
     setLettersButtons((prevLetters) => prevLetters.filter((l) => l !== letter));
-    if (lose) {
+    if (lose || won) {
       return;
     } // si perdio no pueda seguir probando
 
@@ -60,28 +73,26 @@ function App() {
     setLose(false);
     setWon(false);
     setLettersButtons(letters);
+    setTime(30);
   };
 
   return (
     <div className="App">
       {/* Imagenes  */}
       <HangImage imageNumber={attempts} />
-
       {/* Palabra Oculta */}
       <div className="hiddenWord">
         {" "}
         <h3>{hiddenWord}</h3>
       </div>
-
       {/* Contador de intentos */}
-      <h3>Fallos: {attempts}</h3>
-
+      <h3>
+        Fallos: {attempts} - Tiempo: {time}
+      </h3>
       {/* Mensaje si perdio */}
       {lose ? <Lose word={word} newGame={newGame} /> : ""}
-
       {/* Mensaje si gano */}
-      {won ? <Win newGame={newGame} /> : ""}
-
+      {won ? <Win word={word} newGame={newGame} /> : ""}
       {/* Contenedor de letras */}
       <div className="letters-container">
         {lettersButtons.map((letter) => (
@@ -94,7 +105,6 @@ function App() {
           </button>
         ))}
       </div>
-
       <br />
       <br />
       <button className="newGame-button" onClick={() => newGame()}>
