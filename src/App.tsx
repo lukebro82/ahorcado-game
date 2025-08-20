@@ -12,7 +12,7 @@ function App() {
   const [attempts, setAttempts] = useState(0);
   const [lose, setLose] = useState(false);
   const [won, setWon] = useState(false);
-  const [time, setTime] = useState(25);
+  const [time, setTime] = useState(30);
   const [started, setStarted] = useState(false);
 
   // Reducir el tiempo cada segundo
@@ -78,7 +78,7 @@ function App() {
     setLose(false);
     setWon(false);
     setLettersButtons(letters);
-    setTime(25);
+    setTime(30);
     setStarted(false);
   };
 
