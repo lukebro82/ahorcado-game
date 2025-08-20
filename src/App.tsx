@@ -12,10 +12,12 @@ function App() {
   const [attempts, setAttempts] = useState(0);
   const [lose, setLose] = useState(false);
   const [won, setWon] = useState(false);
-  const [time, setTime] = useState(30);
+  const [time, setTime] = useState(25);
+  const [started, setStarted] = useState(false);
 
   // Reducir el tiempo cada segundo
   useEffect(() => {
+    if (!started) return; // aún no inicia hasta la primera letra
     if (lose || won) return; // Detener si ya ganó o perdió
 
     if (time === 0) {
@@ -23,9 +25,11 @@ function App() {
       return;
     }
 
-    const timer = setTimeout(() => setTime(time - 1), 1000);
+    const timer = setTimeout(() => {
+      setTime(time - 1);
+    }, 1000);
     return () => clearTimeout(timer);
-  }, [time, lose, won]);
+  }, [time, lose, won, started]);
 
   // determinar si la persona perdio
   useEffect(() => {
@@ -43,6 +47,7 @@ function App() {
   }, [hiddenWord]);
 
   const checkhLetter = (letter: string) => {
+    if (!started) setStarted(true); // iniciar al seleccionar la primera letra
     setLettersButtons((prevLetters) => prevLetters.filter((l) => l !== letter));
     if (lose || won) {
       return;
@@ -73,7 +78,8 @@ function App() {
     setLose(false);
     setWon(false);
     setLettersButtons(letters);
-    setTime(30);
+    setTime(25);
+    setStarted(false);
   };
 
   return (
@@ -87,7 +93,10 @@ function App() {
       </div>
       {/* Contador de intentos */}
       <h3>
-        Fallos: {attempts} - Tiempo: {time}
+        Fallos: &nbsp;{attempts} &nbsp; &nbsp;-&nbsp; &nbsp; Tiempo: &nbsp;
+        <span key={time} className="time-anim">
+          {time}
+        </span>
       </h3>
       {/* Mensaje si perdio */}
       {lose ? <Lose word={word} newGame={newGame} /> : ""}
